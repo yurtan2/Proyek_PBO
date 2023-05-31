@@ -12,7 +12,7 @@ public class Pacman_Escape extends JFrame {
 		Pacman_Escape pac = new Pacman_Escape();
 		pac.setVisible(true);
 		pac.setTitle("Pacman");
-		pac.setSize(720,1280);
+		pac.setSize(1280,720);
 		pac.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		pac.setLocationRelativeTo(null);
 		
