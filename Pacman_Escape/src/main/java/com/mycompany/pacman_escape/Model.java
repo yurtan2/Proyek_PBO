@@ -19,7 +19,7 @@ public class Model extends JPanel implements ActionListener {
     private boolean inGame = false;
     private boolean dying = false;
     String imagePathGhost = "src/images/ghost.gif";
-    private final int BLOCK_SIZE = 40;
+    private final int BLOCK_SIZE = 24;
     private final int N_BLOCKS = 15;
     private final int SCREEN_SIZE = N_BLOCKS * BLOCK_SIZE;
     private final int MAX_GHOSTS = 12;
@@ -425,16 +425,16 @@ public class Model extends JPanel implements ActionListener {
             int key = e.getKeyCode();
 
             if (inGame) {
-                if (key == KeyEvent.VK_LEFT) {
+                if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) {
                     req_dx = -1;
                     req_dy = 0;
-                } else if (key == KeyEvent.VK_RIGHT) {
+                } else if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) {
                     req_dx = 1;
                     req_dy = 0;
-                } else if (key == KeyEvent.VK_UP) {
+                } else if (key == KeyEvent.VK_UP || key == KeyEvent.VK_W) {
                     req_dx = 0;
                     req_dy = -1;
-                } else if (key == KeyEvent.VK_DOWN) {
+                } else if (key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S) {
                     req_dx = 0;
                     req_dy = 1;
                 } else if (key == KeyEvent.VK_ESCAPE && timer.isRunning()) {
