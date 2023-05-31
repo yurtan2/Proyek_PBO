@@ -5,6 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -15,7 +18,7 @@ public class Model extends JPanel implements ActionListener {
     private final Font smallFont = new Font("Arial", Font.BOLD, 14);
     private boolean inGame = false;
     private boolean dying = false;
-
+    String imagePathGhost = "src/images/ghost.gif";
     private final int BLOCK_SIZE = 24;
     private final int N_BLOCKS = 15;
     private final int SCREEN_SIZE = N_BLOCKS * BLOCK_SIZE;
@@ -69,12 +72,12 @@ public class Model extends JPanel implements ActionListener {
     
     
     private void loadImages() {
-    	down = new ImageIcon("/src/images/down.gif").getImage();
-    	up = new ImageIcon("/src/images/up.gif").getImage();
-    	left = new ImageIcon("/src/images/left.gif").getImage();
-    	right = new ImageIcon("/src/images/right.gif").getImage();
-        ghost = new ImageIcon("/src/images/ghost.gif").getImage();
-        heart = new ImageIcon("/src/images/heart.png").getImage();
+        down = new ImageIcon("src/images/down.gif").getImage();
+        up = new ImageIcon("src/images/up.gif").getImage();
+        left = new ImageIcon("src/images/left.gif").getImage();
+        right = new ImageIcon("src/images/right.gif").getImage();
+        heart = new ImageIcon("src/images/heart.png").getImage();
+
 
     }
        private void initVariables() {
@@ -228,7 +231,7 @@ public class Model extends JPanel implements ActionListener {
 
             ghost_x[i] = ghost_x[i] + (ghost_dx[i] * ghostSpeed[i]);
             ghost_y[i] = ghost_y[i] + (ghost_dy[i] * ghostSpeed[i]);
-            drawGhost(g2d, ghost_x[i] + 1, ghost_y[i] + 1);
+            drawGhost(g2d,imagePathGhost, ghost_x[i] + 1, ghost_y[i] + 1);
 
             if (pacman_x > (ghost_x[i] - 12) && pacman_x < (ghost_x[i] + 12)
                     && pacman_y > (ghost_y[i] - 12) && pacman_y < (ghost_y[i] + 12)
@@ -238,10 +241,15 @@ public class Model extends JPanel implements ActionListener {
             }
         }
     }
+    private void drawGhost(Graphics2D g2d, String imagePath, int x, int y) {
+    try {
+        Image ghost = ImageIO.read(new File(imagePath));
+        g2d.drawImage(ghost, x, y, this);
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
 
-    private void drawGhost(Graphics2D g2d, int x, int y) {
-    	g2d.drawImage(ghost, x, y, this);
-        }
 
     private void movePacman() {
 
