@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.*;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -19,7 +20,7 @@ public class Model extends JPanel implements ActionListener {
     private final Font smallFont = new Font("Arial", Font.BOLD, 14);
     private boolean inGame = false;
     private boolean dying = false;
-    String imagePathGhost = "src/images/ghost.gif";
+    String imagePathGhost = "src/images/ghost.png";
     private final int BLOCK_SIZE = 24;
     private final int N_BLOCKS = 15;
     private final int SCREEN_SIZE = N_BLOCKS * BLOCK_SIZE;
@@ -358,6 +359,32 @@ public class Model extends JPanel implements ActionListener {
         }
     }
 
+public static void playBackgroundMusic(String musicFilePath) {
+        try {
+            // Membaca file musik
+            File musicFile = new File(musicFilePath);
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(musicFile);
+
+            // Mendapatkan format audio
+            AudioFormat format = audioStream.getFormat();
+            DataLine.Info info = new DataLine.Info(Clip.class, format);
+
+            // Membuat objek Clip untuk memainkan musik
+            Clip clip = (Clip) AudioSystem.getLine(info);
+
+            // Memuat musik dari AudioInputStream ke Clip
+            clip.open(audioStream);
+
+            // Memainkan musik secara terus menerus
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        }
+    }
     private void initGame() {
 
     	lives = 3;
@@ -377,67 +404,76 @@ public class Model extends JPanel implements ActionListener {
         continueLevel();
     }
 
-    private void continueLevel() {
-        int dx = 1;
-        int random;
+private void continueLevel() {
+    int dx = 1;
+    int random;
 
-        for (int i = 0; i < N_GHOSTS; i++) {
-            ghost_y[i] = 4 * BLOCK_SIZE; // start position
-            ghost_x[i] = 4 * BLOCK_SIZE;
-            ghost_dy[i] = 0;
-            ghost_dx[i] = dx;
-            dx = -dx;
+    for (int i = 0; i < N_GHOSTS; i++) {
+        ghost_y[i] = 4 * BLOCK_SIZE; // start position
+        ghost_x[i] = 4 * BLOCK_SIZE;
+        ghost_dy[i] = 0;
+        ghost_dx[i] = dx;
+        dx = -dx;
 
-            int randomX;
-            int randomY;
+        int randomX;
+        int randomY;
 
-            boolean validPosition;
+        boolean validPosition;
 
-            do {
-                validPosition = true;
+        do {
+            validPosition = true;
 
-                randomX = (int) (Math.random() * (N_BLOCKS - 2) + 1) * BLOCK_SIZE;
-                randomY = (int) (Math.random() * (N_BLOCKS - 2) + 1) * BLOCK_SIZE;
+            randomX = (int) (Math.random() * (N_BLOCKS - 2) + 1) * BLOCK_SIZE;
+            randomY = (int) (Math.random() * (N_BLOCKS - 2) + 1) * BLOCK_SIZE;
 
-                if ((randomX % BLOCK_SIZE != 0) || (randomY % BLOCK_SIZE != 0)) {
-                    validPosition = false;
-                }
-
-                int pos = randomX / BLOCK_SIZE + N_BLOCKS * (randomY / BLOCK_SIZE);
-
-                if ((screenData[pos] & 1) != 0) {
-                    validPosition = false;
-                }
-
-                for (int j = 0; j < i; j++) {
-                    if (ghost_x[j] == randomX && ghost_y[j] == randomY) {
-                        validPosition = false;
-                        break;
-                    }
-                }
-
-            } while (!validPosition);
-
-            ghost_x[i] = randomX;
-            ghost_y[i] = randomY;
-
-            random = (int) (Math.random() * (currentSpeed + 1));
-
-            if (random > currentSpeed) {
-                random = currentSpeed;
+            if ((randomX % BLOCK_SIZE != 0) || (randomY % BLOCK_SIZE != 0)) {
+                validPosition = false;
             }
 
-            ghostSpeed[i] = validSpeeds[random];
+            int pos = randomX / BLOCK_SIZE + N_BLOCKS * (randomY / BLOCK_SIZE);
+
+            if ((screenData[pos] & 1) != 0) {
+                validPosition = false;
+            }
+
+            for (int j = 0; j < i; j++) {
+                if (ghost_x[j] == randomX && ghost_y[j] == randomY) {
+                    validPosition = false;
+                    break;
+                }
+            }
+            
+            // Memeriksa jarak antara posisi respawn pacman dan posisi respawn hantu
+            int pacmanRespawnX = 7 * BLOCK_SIZE;
+            int pacmanRespawnY = 11 * BLOCK_SIZE;
+            int distance = Math.abs(randomX - pacmanRespawnX) + Math.abs(randomY - pacmanRespawnY);
+            if (distance < 4 * BLOCK_SIZE) {
+                validPosition = false;
+            }
+
+        } while (!validPosition);
+
+        ghost_x[i] = randomX;
+        ghost_y[i] = randomY;
+
+        random = (int) (Math.random() * (currentSpeed + 1));
+
+        if (random > currentSpeed) {
+            random = currentSpeed;
         }
 
-        pacman_x = 7 * BLOCK_SIZE;  // start position
-        pacman_y = 11 * BLOCK_SIZE;
-        pacmand_x = 0;  // reset direction move
-        pacmand_y = 0;
-        req_dx = 0;     // reset direction controls
-        req_dy = 0;
-        dying = false;
+        ghostSpeed[i] = validSpeeds[random];
     }
+
+    pacman_x = 7 * BLOCK_SIZE;  // start position
+    pacman_y = 11 * BLOCK_SIZE;
+    pacmand_x = 0;  // reset direction move
+    pacmand_y = 0;
+    req_dx = 0;     // reset direction controls
+    req_dy = 0;
+    dying = false;
+}
+
 
  
     public void paintComponent(Graphics g) {
