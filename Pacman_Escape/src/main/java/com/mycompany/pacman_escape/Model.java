@@ -402,6 +402,16 @@ public class Model extends JPanel implements ActionListener {
         g2d.setColor(Color.black);
         g2d.fillRect(0, 0, d.width, d.height);
 
+    // Mengatur translasi agar maze berada di tengah-tengah layar
+        int offsetX = (d.width - SCREEN_SIZE) / 2;
+        int offsetY = (d.height - SCREEN_SIZE) / 2;
+        g2d.translate(offsetX, offsetY);
+
+    // Gambar persegi hitam di sisi kiri dan kanan layar
+        g2d.setColor(Color.BLACK);
+        g2d.fillRect(-BLOCK_SIZE, 0, BLOCK_SIZE, d.height);
+        g2d.fillRect(d.width - BLOCK_SIZE/2, 0, BLOCK_SIZE, d.height);
+
         drawMaze(g2d);
         drawScore(g2d);
 
@@ -410,10 +420,10 @@ public class Model extends JPanel implements ActionListener {
         } else {
             showIntroScreen(g2d);
         }
-
         Toolkit.getDefaultToolkit().sync();
         g2d.dispose();
     }
+
 
 
     //controls
