@@ -20,9 +20,10 @@ public class Pacman_Escape extends JFrame {
 		pac.setLocationRelativeTo(null);
                 
 		*/
-            Awal awal =new Awal();
+            Awal awal = new Awal();
             awal.setVisible(true);
-            awal.setSize(1280, 720);
             awal.setLocationRelativeTo(null);
+            awal.setSize(1280,720);
+            awal.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 }
