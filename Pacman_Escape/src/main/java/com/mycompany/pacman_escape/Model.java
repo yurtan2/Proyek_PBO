@@ -133,7 +133,7 @@ private void showIntroScreen(Graphics2D g2d) {
     g2d.fillRect(boxX, boxY, boxWidth, boxHeight);
 
     // Menggambar kotak tepi hitam
-    g2d.setColor(Color.blue);
+    g2d.setColor(Color.black);
     g2d.drawRect(boxX, boxY, boxWidth, boxHeight);
 
     // Menggambar teks di dalam kotak
