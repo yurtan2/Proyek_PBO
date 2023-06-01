@@ -7,6 +7,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -170,77 +171,90 @@ public class Model extends JPanel implements ActionListener {
         continueLevel();
     }
 
-    private void moveGhosts(Graphics2D g2d) {
+private void moveGhosts(Graphics2D g2d) {
 
-        int pos;
-        int count;
+    int pos;
+    int count;
 
-        for (int i = 0; i < N_GHOSTS; i++) {
-            if (ghost_x[i] % BLOCK_SIZE == 0 && ghost_y[i] % BLOCK_SIZE == 0) {
-                pos = ghost_x[i] / BLOCK_SIZE + N_BLOCKS * (int) (ghost_y[i] / BLOCK_SIZE);
+    for (int i = 0; i < N_GHOSTS; i++) {
+        if (ghost_x[i] % BLOCK_SIZE == 0 && ghost_y[i] % BLOCK_SIZE == 0) {
+            pos = ghost_x[i] / BLOCK_SIZE + N_BLOCKS * (int) (ghost_y[i] / BLOCK_SIZE);
 
-                count = 0;
+            count = 0;
 
-                if ((screenData[pos] & 1) == 0 && ghost_dx[i] != 1) {
-                    dx[count] = -1;
-                    dy[count] = 0;
-                    count++;
-                }
+            // List untuk menyimpan kemungkinan arah yang dapat diambil oleh hantu
+            var possibleDirections = new ArrayList<Integer>();
 
-                if ((screenData[pos] & 2) == 0 && ghost_dy[i] != 1) {
-                    dx[count] = 0;
-                    dy[count] = -1;
-                    count++;
-                }
 
-                if ((screenData[pos] & 4) == 0 && ghost_dx[i] != -1) {
-                    dx[count] = 1;
-                    dy[count] = 0;
-                    count++;
-                }
-
-                if ((screenData[pos] & 8) == 0 && ghost_dy[i] != -1) {
-                    dx[count] = 0;
-                    dy[count] = 1;
-                    count++;
-                }
-
-                if (count == 0) {
-
-                    if ((screenData[pos] & 15) == 15) {
-                        ghost_dx[i] = 0;
-                        ghost_dy[i] = 0;
-                    } else {
-                        ghost_dx[i] = -ghost_dx[i];
-                        ghost_dy[i] = -ghost_dy[i];
-                    }
-
-                } else {
-
-                    count = (int) (Math.random() * count);
-
-                    if (count > 3) {
-                        count = 3;
-                    }
-
-                    ghost_dx[i] = dx[count];
-                    ghost_dy[i] = dy[count];
-                }
-
+            // Cek apakah hantu bisa bergerak ke arah kiri
+            if ((screenData[pos] & 1) == 0 && ghost_dx[i] != 1) {
+                possibleDirections.add(-1);
             }
 
-            ghost_x[i] = ghost_x[i] + (ghost_dx[i] * ghostSpeed[i]);
-            ghost_y[i] = ghost_y[i] + (ghost_dy[i] * ghostSpeed[i]);
-            drawGhost(g2d,imagePathGhost, ghost_x[i] + 1, ghost_y[i] + 1);
-
-            if (pacman_x > (ghost_x[i] - 12) && pacman_x < (ghost_x[i] + 12)
-                    && pacman_y > (ghost_y[i] - 12) && pacman_y < (ghost_y[i] + 12)
-                    && inGame) {
-
-                dying = true;
+            // Cek apakah hantu bisa bergerak ke arah atas
+            if ((screenData[pos] & 2) == 0 && ghost_dy[i] != 1) {
+                possibleDirections.add(-2);
             }
+
+            // Cek apakah hantu bisa bergerak ke arah kanan
+            if ((screenData[pos] & 4) == 0 && ghost_dx[i] != -1) {
+                possibleDirections.add(1);
+            }
+
+            // Cek apakah hantu bisa bergerak ke arah bawah
+            if ((screenData[pos] & 8) == 0 && ghost_dy[i] != -1) {
+                possibleDirections.add(2);
+            }
+
+            // Jika terdapat kemungkinan arah yang dapat diambil
+            if (!possibleDirections.isEmpty()) {
+                int pacmanTileX = pacman_x / BLOCK_SIZE;
+                int pacmanTileY = pacman_y / BLOCK_SIZE;
+
+                // Menghitung jarak hantu dengan posisi Pacman
+                int distanceX = Math.abs(pacmanTileX - ghost_x[i] / BLOCK_SIZE);
+                int distanceY = Math.abs(pacmanTileY - ghost_y[i] / BLOCK_SIZE);
+
+                // Menghitung nilai heuristik untuk setiap arah yang mungkin
+                int[] heuristicValues = new int[possibleDirections.size()];
+                for (int j = 0; j < possibleDirections.size(); j++) {
+                    int direction = possibleDirections.get(j);
+
+                    int nextTileX = (ghost_x[i] + (direction % 2) * BLOCK_SIZE) / BLOCK_SIZE;
+                    int nextTileY = (ghost_y[i] + (direction / 2) * BLOCK_SIZE) / BLOCK_SIZE;
+
+                    int distanceToPacman = Math.abs(nextTileX - pacmanTileX) + Math.abs(nextTileY - pacmanTileY);
+                    heuristicValues[j] = distanceToPacman;
+                }
+
+                // Mengambil arah dengan nilai heuristik terkecil
+                int minIndex = 0;
+                for (int j = 1; j < heuristicValues.length; j++) {
+                    if (heuristicValues[j] < heuristicValues[minIndex]) {
+                        minIndex = j;
+                    }
+                }
+
+                int selectedDirection = possibleDirections.get(minIndex);
+                ghost_dx[i] = selectedDirection % 2; // dx = 0 untuk vertikal, dx = 1 untuk horizontal
+                ghost_dy[i] = selectedDirection / 2; // dy = 0 untuk horizontal, dy = 1 untuk vertikal
+            }
+
+        }
+
+        ghost_x[i] = ghost_x[i] + (ghost_dx[i] * ghostSpeed[i]);
+        ghost_y[i] = ghost_y[i] + (ghost_dy[i] * ghostSpeed[i]);
+        drawGhost(g2d, imagePathGhost, ghost_x[i] + 1, ghost_y[i] + 1);
+
+        if (pacman_x > (ghost_x[i] - 12) && pacman_x < (ghost_x[i] + 12)
+                && pacman_y > (ghost_y[i] - 12) && pacman_y < (ghost_y[i] + 12)
+                && inGame) {
+
+            dying = true;
         }
     }
+}
+
     private void drawGhost(Graphics2D g2d, String imagePath, int x, int y) {
     try {
         Image ghost = ImageIO.read(new File(imagePath));
