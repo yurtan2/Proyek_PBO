@@ -32,6 +32,8 @@ public class Awal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocationByPlatform(true);
+        setPreferredSize(new java.awt.Dimension(1280, 720));
 
         Mulai.setBackground(new java.awt.Color(0,0,0,1)
         );
@@ -51,8 +53,6 @@ public class Awal extends javax.swing.JFrame {
         jButton2.setText("HighScore");
         jButton2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jButton2.setContentAreaFilled(false);
-
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\robah\\Downloads\\paccc.jpg")); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -141,6 +141,7 @@ public class Awal extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Awal().setVisible(true);
+                
             }
         });
     }
