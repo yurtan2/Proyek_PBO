@@ -378,17 +378,49 @@ public class Model extends JPanel implements ActionListener {
     }
 
     private void continueLevel() {
-
-    	int dx = 1;
+        int dx = 1;
         int random;
 
         for (int i = 0; i < N_GHOSTS; i++) {
-
-            ghost_y[i] = 4 * BLOCK_SIZE; //start position
+            ghost_y[i] = 4 * BLOCK_SIZE; // start position
             ghost_x[i] = 4 * BLOCK_SIZE;
             ghost_dy[i] = 0;
             ghost_dx[i] = dx;
             dx = -dx;
+
+            int randomX;
+            int randomY;
+
+            boolean validPosition;
+
+            do {
+                validPosition = true;
+
+                randomX = (int) (Math.random() * (N_BLOCKS - 2) + 1) * BLOCK_SIZE;
+                randomY = (int) (Math.random() * (N_BLOCKS - 2) + 1) * BLOCK_SIZE;
+
+                if ((randomX % BLOCK_SIZE != 0) || (randomY % BLOCK_SIZE != 0)) {
+                    validPosition = false;
+                }
+
+                int pos = randomX / BLOCK_SIZE + N_BLOCKS * (randomY / BLOCK_SIZE);
+
+                if ((screenData[pos] & 1) != 0) {
+                    validPosition = false;
+                }
+
+                for (int j = 0; j < i; j++) {
+                    if (ghost_x[j] == randomX && ghost_y[j] == randomY) {
+                        validPosition = false;
+                        break;
+                    }
+                }
+
+            } while (!validPosition);
+
+            ghost_x[i] = randomX;
+            ghost_y[i] = randomY;
+
             random = (int) (Math.random() * (currentSpeed + 1));
 
             if (random > currentSpeed) {
@@ -398,11 +430,11 @@ public class Model extends JPanel implements ActionListener {
             ghostSpeed[i] = validSpeeds[random];
         }
 
-        pacman_x = 7 * BLOCK_SIZE;  //start position
+        pacman_x = 7 * BLOCK_SIZE;  // start position
         pacman_y = 11 * BLOCK_SIZE;
-        pacmand_x = 0;	//reset direction move
+        pacmand_x = 0;  // reset direction move
         pacmand_y = 0;
-        req_dx = 0;		// reset direction controls
+        req_dx = 0;     // reset direction controls
         req_dy = 0;
         dying = false;
     }
