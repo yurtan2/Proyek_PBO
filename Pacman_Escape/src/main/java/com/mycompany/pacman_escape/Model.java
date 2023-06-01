@@ -113,12 +113,33 @@ public class Model extends JPanel implements ActionListener {
         }
     }
 
-    private void showIntroScreen(Graphics2D g2d) {
- 
-    	String start = "Press SPACE to start";
-        g2d.setColor(Color.yellow);
-        g2d.drawString(start, (SCREEN_SIZE)/4, 150);
-    }
+private void showIntroScreen(Graphics2D g2d) {
+    String start = "Press SPACE to start";
+    g2d.setColor(Color.yellow);
+
+    // Mengukur lebar dan tinggi teks
+    FontMetrics fm = g2d.getFontMetrics();
+    int textWidth = fm.stringWidth(start);
+    int textHeight = fm.getHeight();
+
+    // Menghitung posisi kotak berdasarkan teks
+    int boxX = (SCREEN_SIZE - textWidth) / 2 - 15;  //padding
+    int boxY = 150 - textHeight + fm.getAscent() - 25;  //padding
+    int boxWidth = textWidth + 30;  // 20 adalah padding
+    int boxHeight = textHeight + 30;  // 20 adalah padding
+
+    // Menggambar kotak dengan latar belakang kuning
+    g2d.setColor(Color.yellow);
+    g2d.fillRect(boxX, boxY, boxWidth, boxHeight);
+
+    // Menggambar kotak tepi hitam
+    g2d.setColor(Color.blue);
+    g2d.drawRect(boxX, boxY, boxWidth, boxHeight);
+
+    // Menggambar teks di dalam kotak
+    g2d.setColor(Color.black);
+    g2d.drawString(start, (SCREEN_SIZE - textWidth) / 2, 150);
+}
 
     private void drawScore(Graphics2D g) {
         g.setFont(smallFont);
