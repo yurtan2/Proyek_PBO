@@ -500,8 +500,8 @@ private void continueLevel() {
         ghostSpeed[i] = validSpeeds[random];
     }
 
-    pacman_x = 7 * BLOCK_SIZE;  // start position
-    pacman_y = 11 * BLOCK_SIZE;
+    pacman_x = 0 * BLOCK_SIZE;  // start position
+    pacman_y = 0 * BLOCK_SIZE;
     pacmand_x = 0;  // reset direction move
     pacmand_y = 0;
     req_dx = 0;     // reset direction controls
