@@ -471,8 +471,8 @@ private void continueLevel() {
             }
     
             // Memeriksa jarak antara posisi respawn pacman dan posisi respawn hantu
-            int pacmanRespawnX = 7 * BLOCK_SIZE;
-            int pacmanRespawnY = 11 * BLOCK_SIZE;
+            int pacmanRespawnX = 0 * BLOCK_SIZE;
+            int pacmanRespawnY = 0 * BLOCK_SIZE;
             int distance = Math.abs(randomX - pacmanRespawnX) + Math.abs(randomY - pacmanRespawnY);
     
             if (distance < 4 * BLOCK_SIZE) {
