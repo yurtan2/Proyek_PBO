@@ -13,8 +13,8 @@ public class Pacman_Escape extends JFrame {
 	public static void main(String[] args) {
             StartMenu menu = new StartMenu();
             menu.setVisible(true);
-            menu.setLocationRelativeTo(null);
             menu.setSize(1280,720);
             menu.setDefaultCloseOperation(EXIT_ON_CLOSE);
+            menu.setLocationRelativeTo(null);
 	}
 }
