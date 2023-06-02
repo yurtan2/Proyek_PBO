@@ -39,21 +39,21 @@ public class Model extends JPanel implements ActionListener {
     private int req_dx, req_dy;
 
     private final short levelData[] = {
-    	19, 00, 00, 00, 23, 00, 23, 00, 23, 00, 23, 00, 00, 00, 00,
-        25, 18, 18, 18, 20, 00, 21, 00, 21, 00, 17, 26, 26, 30, 00,
-        00, 16, 00, 17, 24, 26, 28, 00, 21, 00, 21, 00, 00, 00, 00,
-        00, 16, 00, 21, 00, 00, 00, 00, 17, 26, 24, 26, 22, 00, 00,
-        00, 16, 00, 21, 00, 27, 26, 26, 20, 00, 00, 00, 21, 00, 00,
-        00, 16, 00, 21, 00, 00, 00, 00, 21, 00, 19, 26, 28, 00, 00,
-        00, 16, 00, 25, 26, 18, 26, 26, 28, 00, 21, 00, 00, 00, 00,
-        00, 16, 00, 00, 00, 16, 00, 00, 00, 00, 21, 00, 16, 16, 22,
-        27, 16, 16, 16, 16, 16, 16, 00, 16, 16, 20, 00, 00, 00, 20,
-        00, 00, 00, 00, 00, 00, 16, 00, 16, 00, 21, 00, 16, 16, 20,
-        19, 16, 16, 16, 16, 00, 16, 00, 00, 00, 21, 00, 00, 00, 21,
-        22, 00, 00, 00, 16, 00, 16, 16, 16, 00, 17, 16, 16, 16, 28,
-        22, 00, 16, 16, 16, 00, 16, 00, 00, 00, 17, 00, 00, 00, 00,
-        22, 00, 00, 00, 00, 00, 16, 00, 27, 26, 24, 26, 16, 16, 00,
-        25, 26, 26, 36, 26, 26, 28, 00, 00, 00, 00, 00, 29, 00, 00
+    	23, 00, 0, 0, 23, 0, 23, 00, 23, 0, 23, 0, 0, 0, 0,
+        25, 18, 26, 18, 20, 0, 21, 00, 21, 0, 17, 26, 26, 30, 0,
+        0, 21, 0, 17, 24, 26, 28, 00, 21, 0, 21, 0, 0, 0, 0,
+        0, 21, 0, 21, 0, 0, 0, 0, 17, 26, 24, 26, 22, 0, 0,
+        0, 21, 0, 21, 0, 27, 26, 26, 20, 0, 0, 00, 21, 0, 0,
+        0, 21, 0, 21, 0, 0, 0, 0, 21, 0, 19, 26, 28, 0, 0,
+        0, 21, 0, 25, 26, 18, 26, 26, 28, 0, 21, 0, 0, 0, 0,
+        0, 21, 0, 0, 0, 21, 0, 0, 0, 0, 21, 00, 27, 26, 22,
+        27, 24, 26, 26, 26, 24, 22, 0, 19, 26, 20, 0, 0, 0, 21,
+        0, 0, 0, 0, 0, 0, 21, 0, 29, 0, 21, 0, 27, 26, 20,
+        19, 16, 16, 16, 16, 0, 21, 0, 0, 0, 21, 00, 00, 00, 21,
+        22, 0, 0, 0, 16, 0, 17, 26, 30, 0, 17, 26, 26, 26, 28,
+        22, 0, 16, 16, 16, 00, 21, 0, 0, 0, 21, 0, 0, 0, 0,
+        22, 0, 0, 0, 0, 0, 21, 0, 27, 26, 24, 26, 18, 30, 0,
+        25, 26, 26, 36, 27, 26, 28, 0, 0, 0, 0, 0, 29, 0, 0
     };
 
     private final int validSpeeds[] = {1, 2, 3, 4, 6, 8};
@@ -228,8 +228,16 @@ private void showIntroScreen(Graphics2D g2d) {
                     possibleDirections.add(2);
                 }
 
+                // Jika tidak ada kemungkinan arah yang dapat diambil, maka hantu harus mencari jalan lain atau berbalik arah
+                if (possibleDirections.isEmpty()) {
+                    // Berbalik arah
+                    ghost_dx[i] *= -1;
+                    ghost_dy[i] *= -1;
+                }
+
+
                 // Jika terdapat kemungkinan arah yang dapat diambil
-                if (!possibleDirections.isEmpty()) {
+                else if (!possibleDirections.isEmpty()) {
                     int pacmanTileX = pacman_x / BLOCK_SIZE;
                     int pacmanTileY = pacman_y / BLOCK_SIZE;
 
@@ -411,7 +419,7 @@ public static void playBackgroundMusic(String musicFilePath) {
     	lives = 3;
         score = 0;
         initLevel();
-        N_GHOSTS = 6;
+        N_GHOSTS = 3;
         currentSpeed = 3;
     }
 
@@ -443,10 +451,8 @@ private void continueLevel() {
 
         do {
             validPosition = true;
-
             randomX = (int) (Math.random() * (N_BLOCKS - 2) + 1) * BLOCK_SIZE;
             randomY = (int) (Math.random() * (N_BLOCKS - 2) + 1) * BLOCK_SIZE;
-
             if ((randomX % BLOCK_SIZE != 0) || (randomY % BLOCK_SIZE != 0)) {
                 validPosition = false;
             }
@@ -463,16 +469,24 @@ private void continueLevel() {
                     break;
                 }
             }
-            
+    
             // Memeriksa jarak antara posisi respawn pacman dan posisi respawn hantu
             int pacmanRespawnX = 7 * BLOCK_SIZE;
             int pacmanRespawnY = 11 * BLOCK_SIZE;
             int distance = Math.abs(randomX - pacmanRespawnX) + Math.abs(randomY - pacmanRespawnY);
+    
             if (distance < 4 * BLOCK_SIZE) {
+                validPosition = false;
+            }
+    
+            // Cek apakah posisi spawn hantu berada di dalam tembok
+            int spawnPos = randomX / BLOCK_SIZE + N_BLOCKS * (randomY / BLOCK_SIZE);
+            if (screenData[spawnPos] == 0) {
                 validPosition = false;
             }
 
         } while (!validPosition);
+
 
         ghost_x[i] = randomX;
         ghost_y[i] = randomY;
