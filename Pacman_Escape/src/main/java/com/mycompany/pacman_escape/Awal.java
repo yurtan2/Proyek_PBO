@@ -33,11 +33,11 @@ public class Awal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
-        setPreferredSize(new java.awt.Dimension(1280, 720));
 
         Mulai.setBackground(new java.awt.Color(0,0,0,1)
         );
-        Mulai.setForeground(new java.awt.Color(255, 255, 255));
+        Mulai.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        Mulai.setForeground(new java.awt.Color(0, 0, 0));
         Mulai.setText("START");
         Mulai.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         Mulai.setContentAreaFilled(false);
@@ -49,7 +49,8 @@ public class Awal extends javax.swing.JFrame {
 
         jButton2.setBackground(new java.awt.Color(0,0,0,1)
         );
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(0, 0, 0));
         jButton2.setText("HighScore");
         jButton2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jButton2.setContentAreaFilled(false);
