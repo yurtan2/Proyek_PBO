@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class Model extends JPanel implements ActionListener {
+public class Model extends JPanel implements ActionListener{
 
     private Dimension d;
     private final Font smallFont = new Font("Arial", Font.BOLD, 14);
@@ -385,33 +385,6 @@ private void showIntroScreen(Graphics2D g2d) {
 
                 i++;
             }
-        }
-    }
-
-public static void playBackgroundMusic(String musicFilePath) {
-        try {
-            // Membaca file musik
-            File musicFile = new File(musicFilePath);
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(musicFile);
-
-            // Mendapatkan format audio
-            AudioFormat format = audioStream.getFormat();
-            DataLine.Info info = new DataLine.Info(Clip.class, format);
-
-            // Membuat objek Clip untuk memainkan musik
-            Clip clip = (Clip) AudioSystem.getLine(info);
-
-            // Memuat musik dari AudioInputStream ke Clip
-            clip.open(audioStream);
-
-            // Memainkan musik secara terus menerus
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
         }
     }
     private void initGame() {

@@ -118,7 +118,7 @@ public class StartMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void StartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StartButtonActionPerformed
-        Pacman_Escape pac = new Pacman_Escape();
+        var pac = new Pacman_Escape();
         pac.setVisible(true);
         pac.setTitle("Pacman");
         pac.setSize(1280,720);
