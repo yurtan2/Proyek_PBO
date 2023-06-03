@@ -389,8 +389,8 @@ private void showIntroScreen(Graphics2D g2d) {
     	lives = 3;
         score = 0;
         initLevel();
-        N_GHOSTS = 0;
-        currentSpeed = 1;
+        N_GHOSTS = 3;
+        currentSpeed = 3;
     }
 
     private void initLevel() {
