@@ -31,5 +31,11 @@ public class Map1 implements Map{
     public short[] getMapMaze() {
         return MapMaze;
     }
+
+    @Override
+    public int getLevelDataSize() {
+        return MapMaze.length;
+    }
+    
     
 }
