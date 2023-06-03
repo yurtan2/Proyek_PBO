@@ -343,7 +343,16 @@ private void showIntroScreen(Graphics2D g2d) {
 
                 g2d.setColor(new Color(0,72,251));
                 g2d.setStroke(new BasicStroke(5));
-                
+                if(levelData[i]==39){
+                    g2d.setColor(Color.red);
+                    g2d.fillRect(x, y, BLOCK_SIZE, BLOCK_SIZE);
+                    g2d.drawLine(x, y, x, y + BLOCK_SIZE - 1);
+                    g2d.drawLine(x, y, x + BLOCK_SIZE - 1, y);
+                    g2d.drawLine(x + BLOCK_SIZE - 1, y, x + BLOCK_SIZE - 1,
+                            y + BLOCK_SIZE - 1);
+                    g2d.drawLine(x, y + BLOCK_SIZE - 1, x + BLOCK_SIZE - 1,
+                            y + BLOCK_SIZE - 1);
+                }
                 if ((levelData[i] == 0)) { 
                 	g2d.fillRect(x, y, BLOCK_SIZE, BLOCK_SIZE);
                  }
