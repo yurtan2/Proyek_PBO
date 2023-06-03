@@ -6,7 +6,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
@@ -58,6 +61,20 @@ public class Model extends JPanel implements ActionListener{
         addKeyListener(new TAdapter());
         setFocusable(true);
         initGame();
+    }
+    private void saveData(){
+        String fileName = "src/highscore.txt";
+        String fileContent = "Belajar membaca dan menulis file di Java!";
+        
+        try {
+            FileWriter fileWriter = new FileWriter(fileName);
+            fileWriter.write(fileContent);
+            fileWriter.close();
+            
+            System.out.println("File sudah ditulis ulang!");
+        } catch (IOException e) {
+            System.out.println("Terjadi kesalahan karena: " + e.getMessage());
+        }
     }
     
     
