@@ -42,7 +42,8 @@ public class Model extends JPanel implements ActionListener{
     Map map1=new Map1();
     
     private final short levelData[] = map1.getMapMaze();
-
+    //sampai sini bagian pollymorph nya
+    
     private final int validSpeeds[] = {1, 2, 3, 4, 6, 8};
     private final int maxSpeed = 6;
 
