@@ -22,7 +22,12 @@ public class Model extends JPanel implements ActionListener{
     private boolean dying = false;
     String imagePathGhost = "src/images/ghost.png";
     private final int BLOCK_SIZE = 24;
-    private final int N_BLOCKS = 15;
+        //bagian pollymorph nya disini
+    Map map1=new Map1();
+    
+    private final short levelData[] = map1.getMapMaze();
+    //sampai sini bagian pollymorph nya
+    private final int N_BLOCKS = levelData.length;
     private final int SCREEN_SIZE = N_BLOCKS * BLOCK_SIZE;
     private final int MAX_GHOSTS = 12;
     private final int PACMAN_SPEED = 6;
@@ -37,12 +42,6 @@ public class Model extends JPanel implements ActionListener{
 
     private int pacman_x, pacman_y, pacmand_x, pacmand_y;
     private int req_dx, req_dy;
-
-    //bagian pollymorph nya disini
-    Map map1=new Map1();
-    
-    private final short levelData[] = map1.getMapMaze();
-    //sampai sini bagian pollymorph nya
     
     private final int validSpeeds[] = {1, 2, 3, 4, 6, 8};
     private final int maxSpeed = 6;
