@@ -5,10 +5,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.Scanner;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
@@ -62,22 +64,40 @@ public class Model extends JPanel implements ActionListener{
         setFocusable(true);
         initGame();
     }
-    private void saveData(){
+
+    private void saveData() {
         String fileName = "src/highscore.txt";
-        String fileContent = "Belajar membaca dan menulis file di Java!";
-        
+        String skor = Integer.toString(score);
         try {
-            FileWriter fileWriter = new FileWriter(fileName);
-            fileWriter.write(fileContent);
+            boolean fileIsEmpty = isFileEmpty(fileName);
+            FileWriter fileWriter = new FileWriter(fileName, true); // Mode penulisan APPEND
+
+            if (!fileIsEmpty) {
+                // Jika file tidak kosong, tambahkan baris kosong sebelum menulis data baru
+                fileWriter.write("\n");
+            }
+
+            fileWriter.write(skor); // Tidak perlu tambahkan karakter baru setelah setiap skor
             fileWriter.close();
-            
-            System.out.println("File sudah ditulis ulang!");
+
+            System.out.println("Data tersimpan!");
         } catch (IOException e) {
             System.out.println("Terjadi kesalahan karena: " + e.getMessage());
         }
     }
-    
-    
+
+    private boolean isFileEmpty(String fileName) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(fileName));
+            String firstLine = reader.readLine();
+            reader.close();
+
+            return (firstLine == null);
+        } catch (IOException e) {
+        System.out.println("Terjadi kesalahan karena: " + e.getMessage());
+        }
+        return true; // Anggap file kosong jika terjadi kesalahan saat membaca file
+    }
     private void loadImages() {
         down = new ImageIcon("src/images/down.gif").getImage();
         up = new ImageIcon("src/images/up.gif").getImage();
@@ -106,7 +126,7 @@ public class Model extends JPanel implements ActionListener{
     private void playGame(Graphics2D g2d) {
 
         if (dying) {
-
+            
             death();
 
         } else {
@@ -192,6 +212,7 @@ private void showIntroScreen(Graphics2D g2d) {
     	lives--;
 
         if (lives == 0) {
+            saveData();
             inGame = false;
         }
 
