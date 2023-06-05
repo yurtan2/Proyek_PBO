@@ -325,7 +325,7 @@ private void showIntroScreen(Graphics2D g2d) {
 
         int pos;
         short ch;
-
+        
         if (pacman_x % BLOCK_SIZE == 0 && pacman_y % BLOCK_SIZE == 0) {
             pos = pacman_x / BLOCK_SIZE + N_BLOCKS * (int) (pacman_y / BLOCK_SIZE);
             ch = screenData[pos];
@@ -353,9 +353,12 @@ private void showIntroScreen(Graphics2D g2d) {
                 pacmand_x = 0;
                 pacmand_y = 0;
             }
-        } 
+        }
         pacman_x = pacman_x + PACMAN_SPEED * pacmand_x;
         pacman_y = pacman_y + PACMAN_SPEED * pacmand_y;
+        if(pacman_x==0&&pacman_y==456||pacman_x==408&&pacman_y==456){
+            inGame=false;
+        }
     }
 
     private void drawPacman(Graphics2D g2d) {
