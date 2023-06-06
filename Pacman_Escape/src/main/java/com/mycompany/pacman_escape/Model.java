@@ -45,6 +45,7 @@ public class Model extends JPanel implements ActionListener{
 
     //bagian pollymorph nya disini
     Map map1=new Map1();
+    Map map2=new Map2();
     
     private final short levelData[] = map1.getMapMaze();
     //sampai sini bagian pollymorph nya 
