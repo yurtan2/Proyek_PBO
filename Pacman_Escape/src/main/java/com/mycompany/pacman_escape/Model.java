@@ -42,11 +42,15 @@ public class Model extends JPanel implements ActionListener{
 
     private int pacman_x, pacman_y, pacmand_x, pacmand_y;
     private int req_dx, req_dy;
-
+    
     //bagian pollymorph nya disini
     Map map1=new Map1();
     Map map2=new Map2();
-    
+    int[] position = map1.getfinishpos1();
+    int finish1x=position[0];
+    int finish1y=position[1];
+    int finish2x=position[2];
+    int finish2y=position[3];
     private final short levelData[] = map1.getMapMaze();
     //sampai sini bagian pollymorph nya 
     
@@ -151,8 +155,8 @@ private void showIntroScreen(Graphics2D g2d) {
     // Menghitung posisi kotak berdasarkan teks
     int boxX = (SCREEN_SIZE - textWidth) / 2 - 15;  //padding
     int boxY = 150 - textHeight + fm.getAscent() - 25;  //padding
-    int boxWidth = textWidth + 30;  // 20 adalah padding
-    int boxHeight = textHeight + 30;  // 20 adalah padding
+    int boxWidth = textWidth + 30;  // padding
+    int boxHeight = textHeight + 30;  // padding
 
     // Menggambar kotak dengan latar belakang kuning
     g2d.setColor(Color.yellow);
@@ -357,11 +361,10 @@ private void showIntroScreen(Graphics2D g2d) {
         }
         pacman_x = pacman_x + PACMAN_SPEED * pacmand_x;
         pacman_y = pacman_y + PACMAN_SPEED * pacmand_y;
-        if(pacman_x==0&&pacman_y==456||pacman_x==408&&pacman_y==456){
+        if(pacman_x==finish1x&&pacman_y==finish1y||pacman_x==finish2x&&pacman_y==finish2y){
             inGame=false;
         }
     }
-
     private void drawPacman(Graphics2D g2d) {
 
         if (req_dx == -1) {
