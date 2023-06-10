@@ -60,6 +60,7 @@ public class Model extends JPanel implements ActionListener{
     private int currentSpeed = 3;
     private short[] screenData;
     private Timer timer;
+    String fileName = "src/highscore.txt";
 
     public Model() {
 
@@ -69,9 +70,28 @@ public class Model extends JPanel implements ActionListener{
         setFocusable(true);
         initGame();
     }
+    
+    private void loadData(){
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(fileName));
+            String line = reader.readLine();
+            while (line != null)                 // read the score file line by line
+            {
+                try {
+                    
+                } catch (NumberFormatException e1) {
+                    
+                }
+                line = reader.readLine();
+            }
+            reader.close();
+
+        } catch (IOException ex) {
+            System.err.println("ERROR reading scores from file");
+        }
+    }
 
     private void saveData() {
-        String fileName = "src/highscore.txt";
         String skor = Integer.toString(score);
         try {
             boolean fileIsEmpty = isFileEmpty(fileName);
