@@ -11,5 +11,6 @@ package com.mycompany.pacman_escape;
 public interface Map {
     short[] getMapMaze();
     public int getLevelDataSize();
-    public int[] getfinishpos1(); 
+    public int[] getfinishpos1();
+    public short[]loadMapMaze(); 
 }

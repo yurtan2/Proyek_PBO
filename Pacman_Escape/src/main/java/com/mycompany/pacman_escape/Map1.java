@@ -4,34 +4,31 @@
  */
 package com.mycompany.pacman_escape;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 /**
  *
  * @author W I N D O W S
  */
 public class Map1 implements Map{
-    private final short MapMaze[] = {
-    	23, 00, 00, 00, 23, 00, 23, 00, 23, 00, 23, 00, 00, 00, 00, 23, 00, 00, 23, 00,
-        25, 18, 26, 18, 20, 00, 21, 00, 21, 00, 17, 26, 26, 30, 00, 21, 00, 19, 28, 00,
-        00, 21, 00, 17, 24, 26, 28, 00, 21, 00, 21, 00, 00, 00, 00, 17, 26, 20, 00, 23,
-        00, 21, 00, 21, 00, 00, 00, 00, 17, 26, 24, 26, 18, 26, 18, 28, 00, 21, 00, 21,
-        00, 21, 00, 21, 00, 27, 26, 26, 20, 00, 00, 00, 21, 00, 29, 00, 27, 20, 00, 21,
-        00, 21, 00, 21, 00, 00, 00, 00, 21, 00, 19, 26, 28, 00, 00, 00, 00, 25, 18, 28,
-        00, 21, 00, 25, 26, 18, 26, 26, 28, 00, 21, 00, 00, 00, 00, 23, 00, 00, 21, 00,
-        00, 21, 00, 00, 00, 21, 00, 00, 00, 00, 21, 00, 27, 26, 18, 24, 22, 00, 25, 22,
-        27, 24, 26, 26, 26, 24, 22, 00, 19, 26, 20, 00, 00, 00, 21, 00, 21, 00, 00, 21,
-        00, 00, 00, 00, 00, 00, 21, 00, 29, 00, 21, 00, 27, 26, 20, 00, 21, 00, 19, 28,
-        19, 26, 26, 26, 22, 00, 21, 00, 00, 00, 21, 00, 00, 00, 17, 26, 28, 00, 21, 00,
-        21, 00, 00, 00, 21, 00, 17, 26, 30, 00, 17, 26, 26, 26, 28, 00, 00, 19, 28, 00,
-        21, 00, 27, 26, 28, 00, 21, 00, 00, 00, 21, 00, 00, 00, 00, 00, 19, 20, 00, 00,
-        21, 00, 00, 00, 00, 00, 21, 00, 27, 26, 24, 26, 18, 30, 00, 00, 17, 24, 26, 22,
-        25, 26, 18, 26, 18, 26, 28, 00, 00, 00, 00, 00, 21, 00, 19, 26, 28, 00, 00, 21,
-        00, 00, 21, 00, 21, 00, 00, 00, 23, 00, 27, 26, 20, 00, 21, 00, 00, 00, 27, 20,
-        00, 27, 28, 00, 17, 26, 26, 26, 28, 00, 00, 00, 21, 00, 17, 26, 30, 00, 00, 21,
-        00, 00, 00, 00, 21, 00, 00, 00, 00, 00, 19, 26, 16, 26, 20, 00, 00, 00, 19, 28,
-        00, 19, 26, 18, 16, 26, 26, 22, 00, 00, 21, 00, 29, 00, 21, 00, 00, 19, 28, 00,
-        11, 28, 00, 25, 28, 00, 00, 25, 26, 26, 28, 00, 00, 00, 25, 30, 00, 13, 00, 00
-    };
-    
+    public short[] loadMapMaze() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/mapmaze1.txt"))) {
+            String line = reader.readLine();
+            String[] values = line.split(" ");
+            short[] mapMaze = new short[values.length];
+            for (int i = 0; i < values.length; i++) {
+                mapMaze[i] = Short.parseShort(values[i]);
+            }
+            System.out.println("MapMaze loaded successfully.");
+            return mapMaze;
+        } catch (IOException e) {
+            System.out.println("Error occurred while loading MapMaze: " + e.getMessage());
+            return null;
+        }
+    }
+        private final short MapMaze[] = loadMapMaze();
     @Override
     public short[] getMapMaze() {
         return MapMaze;
