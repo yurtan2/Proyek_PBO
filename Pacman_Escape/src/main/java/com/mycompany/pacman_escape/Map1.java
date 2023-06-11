@@ -28,7 +28,7 @@ public class Map1 implements Map{
             return null;
         }
     }
-        private final short MapMaze[] = loadMapMaze();
+    private final short MapMaze[] = loadMapMaze();
     @Override
     public short[] getMapMaze() {
         return MapMaze;
