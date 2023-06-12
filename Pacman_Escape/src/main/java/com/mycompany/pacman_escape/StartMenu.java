@@ -60,8 +60,8 @@ public class StartMenu extends javax.swing.JFrame {
         OptionButton.setBackground(new java.awt.Color(255, 255, 0));
         OptionButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         OptionButton.setForeground(new java.awt.Color(0, 102, 255));
-        OptionButton.setText("OPTION");
         OptionButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        OptionButton.setLabel("CHOOSE MAP");
         OptionButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 OptionButtonActionPerformed(evt);
