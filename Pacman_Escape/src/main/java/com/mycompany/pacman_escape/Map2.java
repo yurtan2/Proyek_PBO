@@ -12,7 +12,11 @@ import java.io.IOException;
  *
  * @author Yoga Pramana ST
  */
-public class Map2 extends Maps implements Map{
+public class Map2 extends Maps{
+
+    public Map2(int finish1x, int finish1y, int finish2x, int finish2y) {
+        super(finish1x, finish1y, finish2x, finish2y);
+    }
     
     public short[] loadMapMaze() {
         try (BufferedReader reader = new BufferedReader(new FileReader("src/mapmaze2.txt"))) {
@@ -41,15 +45,12 @@ public class Map2 extends Maps implements Map{
         return MapMaze.length;
     }
     
-    public void dec(){
+    
+    public int[] getfinishpos1() {
         finish1x = 0;
         finish1y = 432;
         finish2x = 408;
         finish2y = 456;
-    }
-    
-    
-    public int[] getfinishpos1() {
         int[] position = new int[4];
         // Contoh nilai koordinat x dan y
         position[0] = finish1x;

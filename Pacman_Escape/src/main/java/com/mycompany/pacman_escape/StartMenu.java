@@ -55,7 +55,7 @@ public class StartMenu extends javax.swing.JFrame {
                 StartButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(StartButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 280, 200, 80));
+        jPanel1.add(StartButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 260, 210, 90));
 
         OptionButton.setBackground(new java.awt.Color(255, 255, 0));
         OptionButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -67,7 +67,7 @@ public class StartMenu extends javax.swing.JFrame {
                 OptionButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(OptionButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 280, 200, 80));
+        jPanel1.add(OptionButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 260, 210, 90));
         OptionButton.getAccessibleContext().setAccessibleDescription("");
 
         ExitButton.setBackground(new java.awt.Color(255, 255, 0));
@@ -80,7 +80,7 @@ public class StartMenu extends javax.swing.JFrame {
                 ExitButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(ExitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 440, 220, 80));
+        jPanel1.add(ExitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 420, 230, 90));
 
         jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\Yoga Pramana ST\\Documents\\GitHub\\Proyek_PBO\\Pacman_Escape\\src\\images\\pacmaze.jpg")); // NOI18N
         jLabel3.setText("jLabel3");

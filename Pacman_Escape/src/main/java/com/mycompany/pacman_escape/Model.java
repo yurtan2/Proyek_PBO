@@ -44,14 +44,13 @@ public class Model extends JPanel implements ActionListener{
     private int req_dx, req_dy;
     
     //bagian pollymorph nya disini
-    Map map1=new Map1();
-    Map map2=new Map2();
-    int[] position = map2.getfinishpos1();
+    Maps maps = new Map2(0, 456, 408, 456);
+    int[] position = maps.getfinishpos1();
     int finish1x=position[0];
     int finish1y=position[1];
     int finish2x=position[2];
     int finish2y=position[3];
-    private final short levelData[] = map2.getMapMaze();
+    private final short levelData[] = maps.getMapMaze();
     //sampai sini bagian pollymorph nya 
     
     private final int validSpeeds[] = {1, 2, 3, 4, 6, 8};
@@ -63,7 +62,7 @@ public class Model extends JPanel implements ActionListener{
     String fileName = "src/highscore.txt";
 
     public Model() {
-
+        
         loadImages();
         initVariables();
         addKeyListener(new TAdapter());
