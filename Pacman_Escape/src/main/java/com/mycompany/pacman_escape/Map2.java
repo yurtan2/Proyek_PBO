@@ -12,7 +12,7 @@ import java.io.IOException;
  *
  * @author Yoga Pramana ST
  */
-public class Map2 extends Maps{
+public class Map2 extends Maps<short[]>{
 
     public Map2(int finish1x, int finish1y, int finish2x, int finish2y) {
         super(finish1x, finish1y, finish2x, finish2y);

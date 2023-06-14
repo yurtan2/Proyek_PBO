@@ -8,9 +8,9 @@ package com.mycompany.pacman_escape;
  *
  * @author W I N D O W S
  */
-public interface Map {
-    short[] getMapMaze();
+public interface Map <T> {
+    T getMapMaze();
     public int getLevelDataSize();
     public int[] getfinishpos1();
-    public short[]loadMapMaze(); 
+    T loadMapMaze(); 
 }

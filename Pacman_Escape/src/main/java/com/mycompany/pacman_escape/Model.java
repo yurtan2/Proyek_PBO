@@ -50,7 +50,7 @@ public class Model extends JPanel implements ActionListener{
     int finish1y=position[1];
     int finish2x=position[2];
     int finish2y=position[3];
-    private final short levelData[] = maps.getMapMaze();
+    private final short levelData[] = (short[]) maps.getMapMaze();
     //sampai sini bagian pollymorph nya 
     
     private final int validSpeeds[] = {1, 2, 3, 4, 6, 8};
