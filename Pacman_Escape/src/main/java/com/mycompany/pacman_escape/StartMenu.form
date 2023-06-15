@@ -64,6 +64,9 @@
           <Dimension value="[400, 400]"/>
         </Property>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new BackgroundPanel()"/>
+      </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
         <Property name="useNullLayout" type="boolean" value="false"/>
@@ -157,9 +160,6 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\Yoga Pramana ST\Documents\GitHub\Proyek_PBO\Pacman_Escape\src\images\pacmaze.jpg"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="jLabel3"/>
           </Properties>
           <Constraints>

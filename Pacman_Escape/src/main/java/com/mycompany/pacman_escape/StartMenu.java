@@ -4,6 +4,11 @@
  */
 package com.mycompany.pacman_escape;
 
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+
 /**
  *
  * @author robah
@@ -27,7 +32,7 @@ public class StartMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        jPanel1 = new BackgroundPanel();
         StartButton = new javax.swing.JButton();
         OptionButton = new javax.swing.JButton();
         ExitButton = new javax.swing.JButton();
@@ -82,7 +87,6 @@ public class StartMenu extends javax.swing.JFrame {
         });
         jPanel1.add(ExitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 420, 230, 90));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\Yoga Pramana ST\\Documents\\GitHub\\Proyek_PBO\\Pacman_Escape\\src\\images\\pacmaze.jpg")); // NOI18N
         jLabel3.setText("jLabel3");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 1280, 740));
 
@@ -152,6 +156,20 @@ public class StartMenu extends javax.swing.JFrame {
                 
             }
         });
+    }
+
+
+
+    private final Image backgroundImage = new ImageIcon("src/images/pacmaze.jpg").getImage();
+
+    // ...
+
+    private class BackgroundPanel extends JPanel {
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
