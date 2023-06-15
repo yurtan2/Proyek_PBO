@@ -581,29 +581,27 @@ private void continueLevel() {
     g2d.setColor(Color.black);
     g2d.fillRect(0, 0, d.width, d.height);
 
-    // Mengatur translasi agar maze berada di tengah-tengah layar
+    
     int offsetX = (d.width - SCREEN_SIZE) / 2;
     int offsetY = (d.height - SCREEN_SIZE) / 2;
     g2d.translate(offsetX, offsetY);
 
-    // Gambar persegi hitam di sisi kiri dan kanan layar
+    
     g2d.setColor(Color.BLACK);
     g2d.fillRect(-BLOCK_SIZE, 0, BLOCK_SIZE, d.height);
     g2d.fillRect(d.width - BLOCK_SIZE/2, 0, BLOCK_SIZE, d.height);
 
-    // Menggambar persegi putih di dalam persegi hitam sebelah kiri maze
-    int whiteBoxWidth = -BLOCK_SIZE * 15; // Lebar persegi panjang negatif
-    int whiteBoxHeight = d.height/2; // Tinggi persegi panjang sama dengan tinggi layar
-    int whiteBoxX = (-BLOCK_SIZE*1); // Posisi X persegi putih
+    
+    int whiteBoxWidth = -BLOCK_SIZE * 15; 
+    int whiteBoxHeight = d.height/2; 
+    int whiteBoxX = (-BLOCK_SIZE*1); 
     int whiteBoxY = 0;
     g2d.setColor(Color.WHITE);
-    g2d.fillRect(whiteBoxX, whiteBoxY, whiteBoxWidth, whiteBoxHeight); // Ukuran persegi putih yang lebih kecil
-
-    // Menggambar tulisan highscore di dalam persegi putih
-g2d.setColor(Color.BLACK);
-g2d.setFont(new Font("Arial", Font.BOLD, 24)); // Mengatur ukuran font menjadi lebih besar
-String highscoreLabel = "Highscore:";
-String highscoreText = "";
+    g2d.fillRect(whiteBoxX, whiteBoxY, whiteBoxWidth, whiteBoxHeight); 
+    g2d.setColor(Color.BLACK);
+    g2d.setFont(new Font("Arial", Font.BOLD, 24)); 
+    String highscoreLabel = "Highscore:";
+    String highscoreText = "";
 
 ArrayList<Integer> highscores = new ArrayList<>();
 
@@ -625,8 +623,6 @@ try {
 } catch (IOException e) {
     System.out.println("Terjadi kesalahan saat membaca file highscore: " + e.getMessage());
 }
-
-// Mengurutkan highscores secara menurun (descending)
 Collections.sort(highscores, Collections.reverseOrder());
 
 FontMetrics fontMetrics = g2d.getFontMetrics();
@@ -636,13 +632,16 @@ int labelX = whiteBoxX + (whiteBoxWidth - labelWidth) / 2;
 int textX = whiteBoxWidth+BLOCK_SIZE;
 int labelY = whiteBoxY + fontMetrics.getAscent();
 int textY = labelY + fontMetrics.getHeight() + fontMetrics.getLeading();
-
+Color startColor = Color.RED;
+Color endColor = Color.ORANGE;
+GradientPaint gradientPaint = new GradientPaint(0, labelY-5, startColor, 0, labelY, endColor);
+g2d.setPaint(gradientPaint);
 g2d.drawString(highscoreLabel, labelX, labelY);
 
-// Menampilkan highscores
 int startY = textY;
 int lineHeight = fontMetrics.getHeight() + fontMetrics.getLeading();
-int numScores = Math.min(highscores.size(), 10); // Hanya mencetak 5 data teratas
+g2d.setColor(Color.BLACK);
+int numScores = Math.min(highscores.size(), 10); 
 for (int i = 0; i < numScores; i++) {
     String scoreText = highscores.get(i).toString();
     int scoreX = textX;
@@ -655,7 +654,6 @@ for (int i = 0; i < numScores; i++) {
     g2d.drawString(scoreText, scoreX, scoreY);
 }
 
-// Mencetak "EMPTY" jika data kurang dari 5
 for (int i = numScores; i < 5; i++) {
     int scoreX = textX;
     int scoreY = startY + (i * lineHeight);
