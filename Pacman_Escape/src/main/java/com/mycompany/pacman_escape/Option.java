@@ -4,11 +4,16 @@
  */
 package com.mycompany.pacman_escape;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
  *
  * @author TUF
  */
 public class Option extends javax.swing.JFrame {
+    String saveMap = "src/ChoseMap.txt";
+    String namaMap = "haha" ;
 
     /**
      * Creates new form Option
@@ -126,18 +131,12 @@ public class Option extends javax.swing.JFrame {
 
     private void Map1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Map1
          
-         StartMenu menu = new StartMenu();
-         menu.setVisible(true);
-         this.setVisible(false);
-         angka=1;
+         namaMap = "Map1(0, 456, 408, 456)";
     }//GEN-LAST:event_Map1
 
     private void Map2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Map2
 
-         StartMenu menu = new StartMenu();
-         menu.setVisible(true);
-         this.setVisible(false);
-         angka=2;
+         namaMap = "Map2(0, 456, 408, 456)";
     }//GEN-LAST:event_Map2
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -184,6 +183,26 @@ public class Option extends javax.swing.JFrame {
             }
         });
     }
+            public void saveMap() {
+        String map = namaMap;
+        try {
+            boolean fileIsEmpty = isFileEmpty(saveMap);
+            
+            FileWriter fileWriter = new FileWriter(saveMap, true); // Mode penulisan APPEND
+
+            if (!fileIsEmpty) {
+                // Jika file tidak kosong, hapus file
+                fileWriter.flush();
+            }
+
+            fileWriter.write(map); // mengisi save chose map
+            fileWriter.close();
+
+            System.out.println("Data tersimpan!");
+        } catch (IOException e) {
+            System.out.println("Terjadi kesalahan karena: " + e.getMessage());
+        }
+    }
     private int angka;
     public int angkareturn(){
         return angka;
@@ -196,4 +215,8 @@ public class Option extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
+
+    private boolean isFileEmpty(String saveMap) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

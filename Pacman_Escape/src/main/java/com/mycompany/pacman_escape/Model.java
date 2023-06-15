@@ -44,7 +44,8 @@ public class Model extends JPanel implements ActionListener{
     private int req_dx, req_dy;
     
     //bagian pollymorph nya disini
-    Maps maps=new Map1(0, 456, 408, 456);
+    
+    Maps maps = new Map2(0, 456, 408, 456);
     int[] position=maps.getfinishpos1();
     int finish1x=position[0];
     int finish1y=position[1];
@@ -109,7 +110,8 @@ public class Model extends JPanel implements ActionListener{
         }
     }
 
-    private boolean isFileEmpty(String fileName) {
+
+    public boolean isFileEmpty(String fileName) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
             String firstLine = reader.readLine();
