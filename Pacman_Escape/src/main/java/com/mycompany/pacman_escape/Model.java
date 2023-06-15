@@ -31,7 +31,7 @@ public class Model extends JPanel implements ActionListener{
     private final int SCREEN_SIZE = N_BLOCKS * BLOCK_SIZE;
     private final int MAX_GHOSTS = 12;
     private final int PACMAN_SPEED = 6;
-    int angkamap;
+    int angkamap=0;
     private int N_GHOSTS = 6;
     private int lives, score;
     private int[] dx, dy;
@@ -44,13 +44,8 @@ public class Model extends JPanel implements ActionListener{
     private int req_dx, req_dy;
     
     //bagian pollymorph nya disini
-    Maps maps;
-    int[] position;
-    Option jenismap=new Option();
-    if (angkamap == 1) {
-    maps = new Map1(0, 456, 456, 456);
-    position = maps.getfinishpos1();
-    }
+    Maps maps=new Map1(0, 456, 408, 456);
+    int[] position=maps.getfinishpos1();
     int finish1x=position[0];
     int finish1y=position[1];
     int finish2x=position[2];
@@ -67,7 +62,6 @@ public class Model extends JPanel implements ActionListener{
     String fileName = "src/highscore.txt";
 
     public Model() {
-        this.angkamap = jenismap.angkareturn();
         loadImages();
         initVariables();
         addKeyListener(new TAdapter());
