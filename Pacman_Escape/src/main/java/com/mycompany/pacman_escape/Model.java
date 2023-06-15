@@ -11,6 +11,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
@@ -45,7 +48,8 @@ public class Model extends JPanel implements ActionListener{
     
     //bagian pollymorph nya disini
     
-    Maps maps = new Map2(0, 456, 408, 456);
+    //Maps maps = new Map2(0, 456, 408, 456);
+    Maps maps = createMapFromFile("src/ChooseMap.txt");
     int[] position=maps.getfinishpos1();
     int finish1x=position[0];
     int finish1y=position[1];
@@ -69,6 +73,33 @@ public class Model extends JPanel implements ActionListener{
         setFocusable(true);
         initGame();
     }
+    
+    private Maps createMapFromFile(String filePath) {
+    try {
+        // Baca file
+        Path path = Paths.get(filePath);
+        byte[] bytes = Files.readAllBytes(path);
+
+        // Ubah byte menjadi string
+        String savedMap = new String(bytes);
+
+        // Hapus karakter newline atau carriage return jika ada
+        savedMap = savedMap.replaceAll("\n", "").replaceAll("\r", "");
+
+        // Buat objek Map berdasarkan data yang disimpan
+        if (savedMap.equals("Map1(0, 456, 408, 456)")) {
+            return new Map1(0, 456, 408, 456);
+        } else if (savedMap.equals("Map2(0, 456, 408, 456)")) {
+            return new Map2(0, 456, 408, 456);
+        } else {
+            System.out.println("Data peta tidak valid.");
+        }
+    } catch (IOException e) {
+        System.out.println("Terjadi kesalahan saat membaca map: " + e.getMessage());
+    }
+
+    return null;
+}
     
     private void loadData(){
         try {
