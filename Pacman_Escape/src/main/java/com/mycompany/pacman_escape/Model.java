@@ -382,6 +382,7 @@ private void showIntroScreen(Graphics2D g2d) {
         pacman_y = pacman_y + PACMAN_SPEED * pacmand_y;
         if(pacman_x==finish1x&&pacman_y==finish1y||pacman_x==finish2x&&pacman_y==finish2y){
             inGame=false;
+            score=score+100;
             saveData();
         }
     }
