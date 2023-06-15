@@ -44,8 +44,17 @@ public class Model extends JPanel implements ActionListener{
     private int req_dx, req_dy;
     
     //bagian pollymorph nya disini
-    Maps maps = new Map2(0, 456, 408, 456);
-    int[] position = maps.getfinishpos1();
+    Maps maps;
+    int[] position;
+    public void setMap1() {
+        maps = new Map1(0, 456, 408, 456);
+        position = maps.getfinishpos1();
+    }
+
+    public void setMap2() {
+        maps = new Map2(0, 456, 408, 456);
+        position = maps.getfinishpos1();
+    }
     int finish1x=position[0];
     int finish1y=position[1];
     int finish2x=position[2];

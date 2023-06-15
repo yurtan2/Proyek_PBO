@@ -95,14 +95,16 @@ public class Option extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Map1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Map1
-         Maps maps = new Map1(0, 456, 408, 456);
+         Model model = new Model();
+         model.setMap1();
          StartMenu menu = new StartMenu();
          menu.setVisible(true);
          this.setVisible(false);
     }//GEN-LAST:event_Map1
 
     private void Map2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Map2
-        Maps maps = new Map2(0, 456, 408, 456);
+        Model model = new Model();
+         model.setMap2();
          StartMenu menu = new StartMenu();
          menu.setVisible(true);
          this.setVisible(false);
