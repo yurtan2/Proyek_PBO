@@ -16,6 +16,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Collections;
 import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
 import javax.swing.ImageIcon;
@@ -573,34 +574,111 @@ private void continueLevel() {
 
  
     public void paintComponent(Graphics g) {
-        super.paintComponent(g);
+    super.paintComponent(g);
 
-        Graphics2D g2d = (Graphics2D) g;
+    Graphics2D g2d = (Graphics2D) g;
 
-        g2d.setColor(Color.black);
-        g2d.fillRect(0, 0, d.width, d.height);
+    g2d.setColor(Color.black);
+    g2d.fillRect(0, 0, d.width, d.height);
 
     // Mengatur translasi agar maze berada di tengah-tengah layar
-        int offsetX = (d.width - SCREEN_SIZE) / 2;
-        int offsetY = (d.height - SCREEN_SIZE) / 2;
-        g2d.translate(offsetX, offsetY);
+    int offsetX = (d.width - SCREEN_SIZE) / 2;
+    int offsetY = (d.height - SCREEN_SIZE) / 2;
+    g2d.translate(offsetX, offsetY);
 
     // Gambar persegi hitam di sisi kiri dan kanan layar
-        g2d.setColor(Color.BLACK);
-        g2d.fillRect(-BLOCK_SIZE, 0, BLOCK_SIZE, d.height);
-        g2d.fillRect(d.width - BLOCK_SIZE/2, 0, BLOCK_SIZE, d.height);
+    g2d.setColor(Color.BLACK);
+    g2d.fillRect(-BLOCK_SIZE, 0, BLOCK_SIZE, d.height);
+    g2d.fillRect(d.width - BLOCK_SIZE/2, 0, BLOCK_SIZE, d.height);
 
-        drawMaze(g2d);
-        drawScore(g2d);
+    // Menggambar persegi putih di dalam persegi hitam sebelah kiri maze
+    int whiteBoxWidth = -BLOCK_SIZE * 15; // Lebar persegi panjang negatif
+    int whiteBoxHeight = d.height/2; // Tinggi persegi panjang sama dengan tinggi layar
+    int whiteBoxX = (-BLOCK_SIZE*1); // Posisi X persegi putih
+    int whiteBoxY = 0;
+    g2d.setColor(Color.WHITE);
+    g2d.fillRect(whiteBoxX, whiteBoxY, whiteBoxWidth, whiteBoxHeight); // Ukuran persegi putih yang lebih kecil
 
-        if (inGame) {
-            playGame(g2d);
-        } else {
-            showIntroScreen(g2d);
+    // Menggambar tulisan highscore di dalam persegi putih
+g2d.setColor(Color.BLACK);
+g2d.setFont(new Font("Arial", Font.BOLD, 24)); // Mengatur ukuran font menjadi lebih besar
+String highscoreLabel = "Highscore:";
+String highscoreText = "";
+
+ArrayList<Integer> highscores = new ArrayList<>();
+
+try {
+    FileReader fileReader = new FileReader("src/highscore.txt");
+    BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+    String line;
+    while ((line = bufferedReader.readLine()) != null) {
+        try {
+            int score = Integer.parseInt(line);
+            highscores.add(score);
+        } catch (NumberFormatException e) {
+            System.out.println("Data highscore tidak valid: " + line);
         }
-        Toolkit.getDefaultToolkit().sync();
-        g2d.dispose();
     }
+
+    bufferedReader.close();
+} catch (IOException e) {
+    System.out.println("Terjadi kesalahan saat membaca file highscore: " + e.getMessage());
+}
+
+// Mengurutkan highscores secara menurun (descending)
+Collections.sort(highscores, Collections.reverseOrder());
+
+FontMetrics fontMetrics = g2d.getFontMetrics();
+int labelWidth = fontMetrics.stringWidth(highscoreLabel);
+int textWidth = fontMetrics.stringWidth(highscoreText);
+int labelX = whiteBoxX + (whiteBoxWidth - labelWidth) / 2;
+int textX = whiteBoxWidth+BLOCK_SIZE;
+int labelY = whiteBoxY + fontMetrics.getAscent();
+int textY = labelY + fontMetrics.getHeight() + fontMetrics.getLeading();
+
+g2d.drawString(highscoreLabel, labelX, labelY);
+
+// Menampilkan highscores
+int startY = textY;
+int lineHeight = fontMetrics.getHeight() + fontMetrics.getLeading();
+int numScores = Math.min(highscores.size(), 10); // Hanya mencetak 5 data teratas
+for (int i = 0; i < numScores; i++) {
+    String scoreText = highscores.get(i).toString();
+    int scoreX = textX;
+    int scoreY = startY + (i * lineHeight);
+
+    String numberText = (i + 1) + ". ";
+    int numberX = scoreX - fontMetrics.stringWidth(numberText);
+
+    g2d.drawString(numberText, numberX, scoreY);
+    g2d.drawString(scoreText, scoreX, scoreY);
+}
+
+// Mencetak "EMPTY" jika data kurang dari 5
+for (int i = numScores; i < 5; i++) {
+    int scoreX = textX;
+    int scoreY = startY + (i * lineHeight);
+
+    String numberText = (i + 1) + ". ";
+    int numberX = scoreX - fontMetrics.stringWidth(numberText);
+
+    g2d.drawString(numberText, numberX, scoreY);
+    g2d.drawString("EMPTY", scoreX, scoreY);
+}
+
+    drawMaze(g2d);
+    drawScore(g2d);
+
+    if (inGame) {
+        playGame(g2d);
+    } else {
+        showIntroScreen(g2d);
+    }
+    Toolkit.getDefaultToolkit().sync();
+    g2d.dispose();
+}
+
 
 
 
