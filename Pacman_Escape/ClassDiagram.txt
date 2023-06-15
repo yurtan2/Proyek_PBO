@@ -1,0 +1,123 @@
+---------------------------------------------------------------------------------
+|                  	     	    Model					|
+---------------------------------------------------------------------------------
+| - d : Dimension								|
+| - smallFont : Font								|
+| - inGame : boolean								|
+| - dying : boolean								|
+| imagePathGhost : String							|
+| - BLOCK_SIZE : int								|
+| - N_BLOCKS : int								|
+| - SCREEN_SIZE : int								|
+| - MAX_GHOSTS : int								|
+| - PACMAN_SPEED : int								|
+| - N_GHOST : int								|
+| - lives : int									|
+| - score : int									|
+| - ghost_x : int[]								|
+| - ghost_y : int[]								|
+| - ghost_dx : int[]								|
+| - ghost_dy : int[]								|
+| - ghostSpeed : int[]								|
+| - heart : Image								|
+| - up : Image									|
+| - down : Image								|
+| - left : Image								|
+| - right : Image								|
+| - pacman_x : int								|
+| - pacman_y : int								|
+| - pacmand_x : int								|
+| - pacmand_y : int								|
+| - req_dx : int								|
+| - req_dy : int								|
+| - maps : Maps									|
+| position : int[]								|
+| finish1x : int								|
+| finish1y : int								|
+| finish2x : int								|
+| finish2y : int								|
+| - levelData : short[]								|
+| - validSpeeds : int[]								|
+| - maxSpeed : int								|
+| - currentSpeed : int								|
+| - screenData : short[]							|
+| - timer : Timer								|
+| fileName : String								|
+---------------------------------------------------------------------------------
+| - createMapFromFile(filePath : String) : Maps					|
+| - loadData() : void								|
+| - saveData() : void								|
+| + isFileEmpty(fileName : String) : boolean					|
+| - loadImages() : void								|	
+| - initVariables() : void							|
+| - playGame(g2d : Graphics2D) : void						|
+| - showIntroScreen(g2d : Graphics2D) : void					|
+| - drawScore(g : Graphics2D) : void						|
+| - checkMaze() : void								|
+| - death() : void								|
+| - moveGhosts(g2d : Graphics2D) : void						|
+| - drawGhost(g2d : Graphics2D, imagePath : String, x : int, y : int) : void	|
+| - movePacman() : void								|
+| - drawPacman(g2d : Graphics2D) : void						|
+| - drawMaze(g2d : Graphics2D) : void						|
+| - initGame() : void								|
+| - initLevel() : void								|
+| + continueLevel() : void							|
+| + actionPerformed(e : ActionEvent) : void					|
+---------------------------------------------------------------------------------
+
+
+---------------------------------------------------------
+|			Music				|
+---------------------------------------------------------
+| - backgroundMusicClip : Clip				|
+---------------------------------------------------------
+| + playBackgroundMusic(musicFilePath : String) : void	|
+---------------------------------------------------------
+
+
+-------------------------------------------------------------------------
+|                  	     	   Map					|
+-------------------------------------------------------------------------
+| getMapMaze() : T							|
+| + getLevelDataSize() : int						|
+| + getfinishpos1() : int						|
+| loadMapMaze() : T							|
+-------------------------------------------------------------------------
+				   ^
+				   |
+				   |
+-------------------------------------------------------------------------
+|                  	     	 Maps					|
+-------------------------------------------------------------------------
+| # finish1x : int							|
+| # finish1y : int							|
+| # finish2x : int							|
+| # finish2y : int							|
+| # mapMaze : T								|
+-------------------------------------------------------------------------
+| + loadMapMaze() : T							|
+| + getMapMaze : T							|
+| + getLevelDataSize() : int						|
+| + getfinishpos1() : int[]						|
+-------------------------------------------------------------------------
+				  ^
+				  |
+				  |
+		-----------------------------------------
+		|					|
+		|					|
+---------------------------------	---------------------------------
+|             Map1		|	|	       Map2		|
+---------------------------------	---------------------------------
+| - MapMaze : short[]		|	| - MapMaze : short[]		|
+---------------------------------	---------------------------------
+| + loadMapMaze() : short[]	|	| + loadMapMaze() : short[]	|
+| + getMapMaze : short[]	|	| + getMapMaze : short[]	|
+| + getLevelDataSize() : int	|	| + getLevelDataSize() : int	|
+| + getfinishpos1() : int[]	|	| + getfinishpos1() : int[]	|
+---------------------------------	---------------------------------
+
+
+
+
