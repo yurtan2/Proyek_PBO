@@ -13,7 +13,7 @@ import java.io.IOException;
  */
 public class Option extends javax.swing.JFrame {
     String saveMap = "src/ChoseMap.txt";
-    String namaMap = "haha" ;
+    String namaMap;
 
     /**
      * Creates new form Option
@@ -132,11 +132,13 @@ public class Option extends javax.swing.JFrame {
     private void Map1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Map1
          
          namaMap = "Map1(0, 456, 408, 456)";
+         saveMap();
     }//GEN-LAST:event_Map1
 
     private void Map2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Map2
 
          namaMap = "Map2(0, 456, 408, 456)";
+         saveMap();
     }//GEN-LAST:event_Map2
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -183,26 +185,22 @@ public class Option extends javax.swing.JFrame {
             }
         });
     }
-            public void saveMap() {
-        String map = namaMap;
-        try {
-            boolean fileIsEmpty = isFileEmpty(saveMap);
-            
-            FileWriter fileWriter = new FileWriter(saveMap, true); // Mode penulisan APPEND
+           private void saveMap() {
+    try {
+        // Buka file untuk penulisan
+        FileWriter fileWriter = new FileWriter("ChooseMap.txt",true);
 
-            if (!fileIsEmpty) {
-                // Jika file tidak kosong, hapus file
-                fileWriter.flush();
-            }
+        // Tulis namaMap ke file dengan baris baru
+        fileWriter.write(namaMap + "\n");
 
-            fileWriter.write(map); // mengisi save chose map
-            fileWriter.close();
+        // Tutup file setelah selesai penulisan
+        fileWriter.close();
 
-            System.out.println("Data tersimpan!");
-        } catch (IOException e) {
-            System.out.println("Terjadi kesalahan karena: " + e.getMessage());
-        }
+        System.out.println("Map berhasil disimpan ke dalam file.");
+    } catch (IOException e) {
+        System.out.println("Terjadi kesalahan saat menyimpan map: " + e.getMessage());
     }
+}
     private int angka;
     public int angkareturn(){
         return angka;
