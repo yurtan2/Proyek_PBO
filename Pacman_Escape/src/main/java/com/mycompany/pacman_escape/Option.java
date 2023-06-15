@@ -4,8 +4,13 @@
  */
 package com.mycompany.pacman_escape;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -14,12 +19,19 @@ import java.io.IOException;
 public class Option extends javax.swing.JFrame {
     String saveMap = "src/ChoseMap.txt";
     String namaMap;
+    ImageIcon Map1 = new ImageIcon("src/images/Map1.png");
+    ImageIcon Map2 = new ImageIcon("src/images/Map2.png");
+    
 
     /**
      * Creates new form Option
      */
     public Option() {
         initComponents();
+        
+        Map1 = new ImageIcon(Map1.getImage().getScaledInstance(jLabel2.getWidth(), jLabel2.getHeight(), Image.SCALE_SMOOTH));
+        Map2 = new ImageIcon(Map2.getImage().getScaledInstance(jLabel2.getWidth(), jLabel2.getHeight(), Image.SCALE_SMOOTH));
+        jLabel2.setIcon(Map1);
     }
 
     /**
@@ -37,6 +49,7 @@ public class Option extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,20 +89,26 @@ public class Option extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jButton1)
+                .addGap(123, 123, 123)
+                .addComponent(jButton2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton1))
@@ -130,13 +149,13 @@ public class Option extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Map1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Map1
-         
+         jLabel2.setIcon(Map1);
          namaMap = "Map1(0, 456, 408, 456)";
          saveMap();
     }//GEN-LAST:event_Map1
 
     private void Map2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Map2
-
+         jLabel2.setIcon(Map2);
          namaMap = "Map2(0, 456, 408, 456)";
          saveMap();
     }//GEN-LAST:event_Map2
@@ -184,6 +203,18 @@ public class Option extends javax.swing.JFrame {
                 new Option().setVisible(true);
             }
         });
+        BufferedImage Map1 = null;
+        try {
+            Map1 = ImageIO.read(new File("src/images/Map1.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        BufferedImage Map2 = null;
+        try {
+            Map2 = ImageIO.read(new File("src/images/Map2.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
            private void saveMap() {
     try {
@@ -201,6 +232,8 @@ public class Option extends javax.swing.JFrame {
         System.out.println("Terjadi kesalahan saat menyimpan map: " + e.getMessage());
     }
 }
+           
+           
     private int angka;
     public int angkareturn(){
         return angka;
@@ -210,6 +243,7 @@ public class Option extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables

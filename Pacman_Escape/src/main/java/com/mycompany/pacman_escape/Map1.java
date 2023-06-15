@@ -4,6 +4,7 @@
  */
 package com.mycompany.pacman_escape;
 
+import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -13,6 +14,10 @@ import java.io.IOException;
  * @author W I N D O W S
  */
 public class Map1 extends Maps<short[]>{
+
+    static Image getScaledInstance(int width, int height) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
     public Map1(int finish1x, int finish1y, int finish2x, int finish2y) {
         super(finish1x, finish1y, finish2x, finish2y);

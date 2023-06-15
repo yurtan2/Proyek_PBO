@@ -48,7 +48,7 @@ public class Model extends JPanel implements ActionListener{
     
     //bagian pollymorph nya disini
     
-    //Maps maps = new Map2(0, 456, 408, 456);
+    
     Maps maps = createMapFromFile("src/ChooseMap.txt");
     int[] position=maps.getfinishpos1();
     int finish1x=position[0];

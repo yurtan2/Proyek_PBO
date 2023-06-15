@@ -36,7 +36,6 @@ public class StartMenu extends javax.swing.JFrame {
         StartButton = new javax.swing.JButton();
         OptionButton = new javax.swing.JButton();
         ExitButton = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 153));
         jLabel1.setForeground(new java.awt.Color(51, 0, 204));
@@ -86,9 +85,6 @@ public class StartMenu extends javax.swing.JFrame {
             }
         });
         jPanel1.add(ExitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 420, 230, 90));
-
-        jLabel3.setText("jLabel3");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 1280, 740));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -177,7 +173,6 @@ public class StartMenu extends javax.swing.JFrame {
     private javax.swing.JButton OptionButton;
     private javax.swing.JButton StartButton;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
