@@ -187,11 +187,11 @@ public class Option extends javax.swing.JFrame {
     }
            private void saveMap() {
     try {
-        // Buka file untuk penulisan
-        FileWriter fileWriter = new FileWriter("ChooseMap.txt",true);
+        // Buka file untuk penulisans
+        FileWriter fileWriter = new FileWriter("src/ChooseMap.txt");
 
         // Tulis namaMap ke file dengan baris baru
-        fileWriter.write(namaMap + "\n");
+        fileWriter.write(namaMap);
 
         // Tutup file setelah selesai penulisan
         fileWriter.close();
