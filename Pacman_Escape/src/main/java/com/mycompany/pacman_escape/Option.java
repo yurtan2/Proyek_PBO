@@ -125,19 +125,19 @@ public class Option extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Map1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Map1
-         Model model = new Model();
-         model.setMap1();
+         
          StartMenu menu = new StartMenu();
          menu.setVisible(true);
          this.setVisible(false);
+         angka=1;
     }//GEN-LAST:event_Map1
 
     private void Map2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Map2
-        Model model = new Model();
-         model.setMap2();
+
          StartMenu menu = new StartMenu();
          menu.setVisible(true);
          this.setVisible(false);
+         angka=2;
     }//GEN-LAST:event_Map2
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -184,7 +184,10 @@ public class Option extends javax.swing.JFrame {
             }
         });
     }
-
+    private int angka;
+    public int angkareturn(){
+        return angka;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
